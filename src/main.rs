@@ -10,7 +10,8 @@ fn main() {
     //iterate over a file and check for a partial match in EACH line
     //return all lines that contain a match and print
 
-    let args: Vec<String> = env::args().collect();
+    let mut args: Vec<String> = env::args().collect();
+    
     let config = Config::build(&args).unwrap_or_else(|err| {
         println!("Missing positional arguments, error: {err}");
         process::exit(1);
