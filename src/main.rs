@@ -1,5 +1,5 @@
 use minigrep::*;
-use std::env;
+use std::{env, process};
 
 fn main() {
     //the program accepts 2 positional arguments:
@@ -11,8 +11,14 @@ fn main() {
     //return all lines that contain a match and print
 
     let args: Vec<String> = env::args().collect();
-    let config = Config::build(&args);
+    let config = Config::build(&args).unwrap_or_else(|err| {
+        println!("Missing positional arguments, error: {err}");
+        process::exit(1);
+    });
 
-    minigrep::run(config);
+    if let Err(e) = minigrep::run(config) {
+        println!("Runtime error: {e}");
+        process::exit(1);
+    }
 
 }

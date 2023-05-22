@@ -1,4 +1,4 @@
-use std::{env, error, fs, io::{self, BufRead}};
+use std::{error, fs};
 
 #[derive(Debug)]
 pub struct Config {
@@ -7,16 +7,13 @@ pub struct Config {
 }
 
 impl Config {
-    pub fn build(args: &[String]) -> Config {
-        if args.len() < 3 {
-            panic!("Either the search string or the filename are missing");
-        }
+    pub fn build(args: &[String]) -> Result<Config, &'static str> {
         let query = args[1].clone();
         let filename = args[2].clone();
-        Config{
+        Ok(Config{
             query,
             filename
-        }
+        })
     }
 }
 
@@ -45,14 +42,7 @@ pub fn run(config: Config) -> Result<(), Box<dyn error::Error>> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    #[test]
-    #[should_panic]
-    #[allow(unused_variables)]
-    fn check_args_provided(){
-        let args: Vec<String> = vec!["only-string".to_string()];
-        let config = Config::build(&args[..]);
-    }
-
+    
     #[test]
     fn one_results() {
         let query = "duct";
