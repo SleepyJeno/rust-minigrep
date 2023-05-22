@@ -1,4 +1,5 @@
 use std::{env, thread::panicking};
+use minigrep::*;
 
 fn main() {
     //the program accepts 2 positional arguments:
@@ -10,25 +11,9 @@ fn main() {
 
     let config = Config::build(query, filename);
 
+    println!("{:?} {:?}", config.query, config.filename);
+
     //parse cli args and match as appropriate
     //iterate over a file and check for a partial match in EACH line
     //return all lines that contain a match and print
-    
-    #[derive(Debug)]
-    struct Config {
-        query: String,
-        filename: String
-    }
-
-    impl Config {
-        fn build(query: String, filename: String) -> Config {
-            if env::args().len() < 3 {
-                panic!("Either the search string or the filename are missing");
-            }
-            Config{
-                query,
-                filename
-            }
-        }
-    }
 }
