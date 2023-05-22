@@ -1,4 +1,3 @@
-use std::{env, thread::panicking};
 use minigrep::*;
 
 fn main() {

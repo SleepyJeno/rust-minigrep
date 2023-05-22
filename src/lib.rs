@@ -1,4 +1,4 @@
-use std::{env, thread::panicking};
+use std::{env};
 
 #[derive(Debug)]
 pub struct Config {
@@ -15,6 +15,18 @@ impl Config {
             query,
             filename
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    #[should_panic]
+    fn check_args_provided(){
+        use super::*;
+        let query = "".to_string();
+        let filename = "file.txt".to_string();
+        let _config = Config::build(query.clone(), filename);
     }
 }
 
